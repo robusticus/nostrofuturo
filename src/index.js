@@ -10,6 +10,15 @@ class NostroFuturo extends React.Component {
 
     constructor (props) {
         super(props);
+        this.state = {
+            currentFrame: 1,
+            chartData: [
+                { x: "1999", y: 2  },
+                { x: "2000", y: 3  },
+                { x: "2001", y: 5  },
+                { x: "2002", y: 4  },
+            ],
+        }
         this.maxFrames = 10;
         this.GetChartData();
         this.interval = setInterval(this.GetChartData.bind(this), 1000)
@@ -32,19 +41,8 @@ class NostroFuturo extends React.Component {
                 });
             }
             else {
-                return this.state.chartData;
                 clearInterval(this.interval);
-            }
-        }
-        else {
-            this.state = {
-                currentFrame: 1,
-                chartData: [
-                    { x: "1999", y: 2  },
-                    { x: "2000", y: 3  },
-                    { x: "2001", y: 5  },
-                    { x: "2002", y: 4  },
-                ],
+                return this.state.chartData;
             }
         }
     }
