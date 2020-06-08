@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import Grid from '@material-ui/core/Grid';
-import { VictoryChart, VictoryLine, VictoryTheme, VictoryContainer, VictoryAxis, VictoryLabel } from 'victory';
+import { VictoryChart, VictoryLine, VictoryTheme, VictoryContainer, VictoryAxis } from 'victory';
 
 // Main UI component
 class NostroFuturo extends React.Component {
