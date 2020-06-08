@@ -139,12 +139,17 @@ h1 {
     }
 
     .Synapsis {
-        height: 705px;
-        padding: 15px;
+        height: 737px;
     }
 
     .ChartButtonBar {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 682) {
+    .Synapsis {
+        height: 600px;
     }
 }
 
