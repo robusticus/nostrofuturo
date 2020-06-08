@@ -206,18 +206,15 @@ class NostroFuturo extends React.Component {
                                     <VictoryAxis dependentAxis
                                         style={{
                                             grid: { stroke: "lightslategrey" },
-                                            tickLabels: { fontSize: 8, padding: 0 },
-                                            axisLabel: { fontSize: 8  }
+                                            tickLabels: { fontSize: 12, padding: 0, fontWeight: 600 },
                                         }}
                                         tickFormat={(t) => "$" + t.toLocaleString(undefined, {minimumFractionDigits: 0})}
-                                        label={"$ in Thousands"}
-                                        axisLabelComponent={<VictoryLabel dy={-33} />}
                                     />
 
                                     <VictoryAxis crossAxis
                                         style={{
                                             grid: { stroke: "lightslategrey" },
-                                            tickLabels: { fontSize: 8 },
+                                            tickLabels: { fontSize: 12, fontWeight: 600 },
                                         }}
                                     />
                                 </VictoryChart>         
