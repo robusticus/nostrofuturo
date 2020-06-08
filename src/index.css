@@ -101,6 +101,27 @@ h1 {
     width: 100% !important;
 }
 
+.ChartButtonBar {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.ChartButtonBar button {
+    border: 1px solid black;
+    padding: 7px;
+    background-color: steelblue;
+    color: white;
+    width: 75px;
+    cursor: pointer;
+}
+
+.ChartButtonBar button:disabled {
+    color: silver;
+    font-style: italic;
+    cursor: auto;
+}
+
 @media screen and (max-width: 1024px) {
     .ChartContainer {
         height: 100%;
@@ -119,6 +140,11 @@ h1 {
 
     .Synapsis {
         height: 705px;
+        padding: 15px;
+    }
+
+    .ChartButtonBar {
+        width: 100%;
     }
 }
 
