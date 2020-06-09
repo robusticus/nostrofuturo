@@ -79,7 +79,7 @@ h1 {
     justify-content: center;
     flex-direction: column;
     padding: 10px;
-    border: 1px solid slategray;
+    border: 1px solid silver;
     display: flex;
     background-color: whitesmoke;
 }
@@ -112,11 +112,11 @@ h1 {
 }
 
 .ChartButtonBar button {
-    border: 1px solid black;
+    border: 1px solid midnightblue;
     padding: 7px;
     background-color: steelblue;
     color: white;
-    width: 75px;
+    width: 95px;
     cursor: pointer;
 }
 
