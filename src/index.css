@@ -50,17 +50,11 @@ h1 {
 }
 
 .Synapsis {
-    background-color: black;
-    color: white;
     padding-left: 35px;
     padding-right: 35px;
     align-items: center;
     display: flex;
     height: 100%;
-}
-
-.Synapsis a {
-    color: lightblue;
 }
 
 .SynapsisInner {
