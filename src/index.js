@@ -186,7 +186,7 @@ class NostroFuturo extends React.Component {
                                 <VictoryChart
                                     theme={VictoryTheme.material}
                                     animate={{
-                                        duration: 1400,
+                                        duration: 1000,
                                         easing: "linear"
                                     }}
                                     containerComponent={<VictoryContainer responsive={true}/>}
