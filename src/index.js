@@ -186,12 +186,12 @@ class NostroFuturo extends React.Component {
                                 <VictoryChart
                                     theme={VictoryTheme.material}
                                     animate={{
-                                        duration: 1000,
+                                        duration: 1400,
                                         easing: "linear"
                                     }}
                                     containerComponent={<VictoryContainer responsive={true}/>}
                                     style={{
-                                        background: { fill: "linen" },
+                                        background: { fill: "whitesmoke" },
                                         fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
                                     }}
                                 >

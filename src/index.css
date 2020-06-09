@@ -50,7 +50,7 @@ h1 {
 }
 
 .Synapsis {
-    background-color: linen;
+    background-color: whitesmoke;
     padding-left: 35px;
     padding-right: 35px;
     align-items: center;
@@ -81,7 +81,7 @@ h1 {
     padding: 10px;
     border: 1px solid slategray;
     display: flex;
-    background-color: linen;
+    background-color: whitesmoke;
 }
 
 .DashboardCard div {
