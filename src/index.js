@@ -162,23 +162,35 @@ class NostroFuturo extends React.Component {
                             <Grid container spacing={0}>
                                 <Grid item xs={12} sm={12} md={6} lg={5}>
                                     <div className="DashboardCard">
-                                        <div>Last Trade Date: {cardData.LastTradeDate}</div>
-                                        <div>Current Direction: {cardData.CurrentDirection}</div>
-                                        <div>Status: {cardData.Status}</div>
+                                        <div className="DashboardRow">
+                                            <span>Last Status:</span><span>{cardData.Status}</span>
+                                        </div>
+                                        <div className="DashboardRow">
+                                            <span>Last Trade Date:</span><span>{cardData.LastTradeDate}</span>
+                                        </div>
+                                        <div className="DashboardRow"> 
+                                            <span>Current Direction:</span><span>{cardData.CurrentDirection}</span>
+                                        </div>
                                     </div>
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={6} lg={5}>
                                     <div className="DashboardCard">
-                                        <div>Algorithm: {cardData.Algorithm}</div>
-                                        <div>First Trade Date: {cardData.FirstTradeDate}</div>
-                                        <div>Initial Outlay: {cardData.InitialOutlay}</div>
+                                        <div className="DashboardRow">
+                                            <span>Algorithm:</span><span>{cardData.Algorithm}</span>
+                                        </div>
+                                        <div className="DashboardRow">
+                                            <span>First Trade Date:</span><span>{cardData.FirstTradeDate}</span>
+                                        </div>
+                                        <div className="DashboardRow">
+                                            <span>Initial Outlay:</span><span>{cardData.InitialOutlay}</span>
+                                        </div>
                                     </div>
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={6} lg={2}>
                                     <div className="DashboardCard">
-                                        <div>Total Return</div>
-                                        <div><b>{cardData.TotalReturnDollars}</b></div>
-                                        <div><b>{cardData.TotalReturnPct}</b></div>
+                                        <div className="DashboardCentered">Total Return</div>
+                                        <div className="DashboardCentered"><b>{cardData.TotalReturnDollars}</b></div>
+                                        <div className="DashboardCentered"><b>{cardData.TotalReturnPct}</b></div>
                                     </div>
                                 </Grid>
                             </Grid>
