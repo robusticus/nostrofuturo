@@ -13,18 +13,17 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1600px;
     width: 100%;
     margin:auto;
 }
 
 .Header {
-    height: 100px;
-    background-color: steelblue;
-    width: 100%;
+    height: 150px;
+    background-color: lightslategray;
     font-size: 56px;
     display: flex;
     align-items: center;
+    padding-left: 25px;
 }
 
 .Header img {
@@ -33,8 +32,8 @@ h1 {
 }
 
 .Footer {
-    height: 100px;
-    background-color:lightslategray;
+    height: 110px;
+    background-color:steelblue;
     padding-right: 35px;
     display: flex;
     font-size: 8px;

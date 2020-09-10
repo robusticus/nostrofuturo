@@ -143,19 +143,19 @@ class NostroFuturo extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <header className="Header">
-                            <img src="nostrologo.png" alt="Nostro Futuro"/>
+                            <img src="logo.png" alt="ProvidentAI"/>
                         </header>
                     </Grid>
                     <Grid item xs={12} sm={6} md={5}>
                         <section className="Synapsis">
                             <div className="SynapsisInner">
-                                <h1>Prescience.</h1>
-                                <p className="DefinitionPart">[ˈpreSH(ē)əns, ˈprēSH(ē)əns]</p>
-                                <p className="DefinitionPart">NOUN</p>
-                                <p className="DefinitionText">the fact of knowing something before it takes place; foreknowledge.</p>
+                                <h1>Provident.</h1>
+                                <p className="DefinitionPart">[ˈprävədənt]</p>
+                                <p className="DefinitionPart">ADJECTIVE</p>
+                                <p className="DefinitionText">making or indicative of timely preparation for the future.</p>
                                 <p>Since the dawn of time human beings have been fascinated with the future and obtaining knowledge thereof. And advantage thereof in a myriad of ways that form a large part of our social fabric.</p>
-                                <p>While we have come far from the days of rolling bones and reading tea leaves to determine <b>when to act</b>, still the fascination remains. Our assertion is the advent of modern data analytics, computing power and web services can grant that advantage long promised.</p>
-                                <p>Nostro Futuro is a set of platforms and applications that aim to harness technology for price and sports prediction, social gambling and the creation and operation of futures markets for media and celebrity.</p>
+                                <p>While we have come far from the days of rolling bones and reading tea leaves to determine <b>when to act</b>, still the fascination remains. Our assertion is the advent of modern AI can grant some of that advantage long promised.</p>
+                                <p>ProvidentAI is a set of platforms and applications for price and sports prediction, social gambling and the creation and operation of futures markets for media and celebrity.</p>
                                 <p>Please peruse the results of the first project: trading in 2X tech leverage with the S&P500 as a price baseline. If you are interested in learning more, get in touch @ <a href="mailto:wtd.dev@gmail.com">wtd.dev@gmail.com</a>. Thank you.</p>
                             </div>
                         </section>
