@@ -19,7 +19,7 @@ h1 {
 
 .Header {
     height: 150px;
-    background-color: lightslategray;
+    background-color: slategray;
     font-size: 56px;
     display: flex;
     align-items: center;
