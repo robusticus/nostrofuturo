@@ -15,6 +15,15 @@ h1 {
     align-items: center;
     width: 100%;
     margin:auto;
+    background-color: lightsteelblue;
+}
+
+.InnerContainer {
+    max-width: 1600px;
+    margin: auto;
+    display: inherit;
+    background-color: whitesmoke;
+
 }
 
 .Header {
@@ -49,30 +58,36 @@ h1 {
     margin-bottom: 0px;
 }
 
-.Synapsis {
-    background-color: whitesmoke;
+.Synopsis {
     padding-left: 35px;
     padding-right: 35px;
     align-items: center;
     display: flex;
     height: 100%;
+    background-color: whitesmoke;
 }
 
-.SynapsisInner {
+.SynopsisInner {
+    max-width: 640px;
+    margin-left: auto;
     margin-top: 10px;
     margin-bottom: 35px;
 }
 
 .Dashboard {
+    padding-left: 35px;
+    padding-right: 35px;
+    background-color: silver;
+    padding-top: 15px;
+}
+
+.DashboardInner {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 35px;
-    padding-right: 35px;
     flex-direction: column;
-    background-color: silver;
-    height: 100%;
-    padding-top: 15px;
+    max-width: 960px;
+    margin-right: auto;
 }
 
 .DashboardCard {
@@ -101,13 +116,12 @@ h1 {
 }
 
 .ChartContainer {
-    max-height: 565px;
-    width: 565px;
+    margin-top: -50px;
 }
 
-.ChartContianer svg {
-    height: 100% !important;
-    width: 100% !important;
+.ChartContainerInner {
+    max-height: 565px;
+    width: 565px;
 }
 
 .ChartButtonBar {
@@ -115,7 +129,14 @@ h1 {
     justify-content: space-between;
     width: 100%;
     max-width: 565px;
-    padding-bottom: 35px;
+}
+
+.Spacer {
+    height: 36px;
+}
+
+.SmallSpacer {
+    height: 12px;
 }
 
 .ChartButtonBar button {
@@ -141,18 +162,30 @@ h1 {
     margin-left: 20px;
 }
 
+.MuiSlider-root {
+    color: steelblue !important;
+}
+
 @media screen and (min-width: 600px) and (max-width: 1024px) {
-    .ChartContainer {
+    .ChartContainerInner {
         max-height: 565px;
         width: 100%;
+    }
+
+    .ChartContainer {
+        margin-top: 0px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .ChartContainer {
+    .ChartContainerInner {
         width: 100%;
         padding-top: 0px;
     }
+    
+    .ChartContainer {
+        margin-top: 0px;
+    }    
 
     .Footer {
         padding-right: 5px;
@@ -169,11 +202,5 @@ h1 {
 
     .Dashboard {
         padding: 20px;
-    }
-
-    .ChartButtonBar {
-        padding-left: 30px;
-        padding-right: 30px;
-        padding-bottom: 35px;
     }
 }
