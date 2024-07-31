@@ -159,7 +159,7 @@ class Chart extends React.Component {
                         <VictoryAxis dependentAxis
                             style={{
                                 grid: { stroke: "lightslategrey" },
-                                tickLabels: { fontSize: 12, padding: 0, fontWeight: 600 },
+                                tickLabels: { fontSize: 10, padding: 0, fontWeight: 600 },
                             }}
                             tickFormat={(t) => "$" + t.toLocaleString(undefined, {minimumFractionDigits: 0})}
                         />
@@ -167,7 +167,7 @@ class Chart extends React.Component {
                         <VictoryAxis crossAxis
                             style={{
                                 grid: { stroke: "lightslategrey" },
-                                tickLabels: { fontSize: 12, fontWeight: 600 },
+                                tickLabels: { fontSize: 10, fontWeight: 600 },
                             }}
                             label={"Trade Date"}
                             axisLabelComponent={

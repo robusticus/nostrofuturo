@@ -18,13 +18,14 @@ class NostroFuturo extends React.Component {
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <header className="Header">
-                            <img src="logo.png" alt="Prescient AI"/>
+                            <img src="logoTrend.png" alt="Trend Friend AI"/>
                         </header>
                     </Grid>
                     <Grid item xs={12} sm={6} md={5}>
                         <Synopsis/>
                     </Grid>
                     <Grid item xs={12} sm={6} md={7}>
+                        
                         <section className="Dashboard">
                             <div className="DashboardInner">
                                 <DashboardCards/>
@@ -34,7 +35,7 @@ class NostroFuturo extends React.Component {
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <footer className="Footer">
-                            <p>© 2020 William Dickey, All Rights Reserved.</p>
+                            <p>© 2020-2024 William Dickey, All Rights Reserved.</p>
                             <p>Nothing within this site is intended as a recommendation to buy or sell securities.</p>
                             <p>Past performance is never a guarantee of future returns.</p>
                         </footer>
