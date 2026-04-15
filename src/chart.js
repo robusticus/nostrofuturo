@@ -1,205 +1,224 @@
-import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import Slider from '@material-ui/core/Slider';
-import { VictoryChart, VictoryLine, VictoryTheme, VictoryContainer, VictoryAxis, VictoryLabel } from 'victory';
+import Slider from '@mui/material/Slider';
+import { PlayArrow, SkipNext, SkipPrevious, Stop } from '@mui/icons-material';
+import ReactECharts from 'echarts-for-react';
 
 import FetchLib from './fetchLib';
 
-// Chart component that wraps VictoryChart
-class Chart extends React.Component {
+// Chart component that wraps 3rd party
+function Chart() {
 
-    constructor (props) {
-        super(props);
-        this.state = {
-            currentFrame: 0,
-            maxFrame: 10,
-            frameSize: 5,
-            chartData: [],
-            isRunning: false,
+    const TIMER_INTERVAl = 150;
+    const frameSize = 8;
+
+    const [currentFrame, setCurrentFrame] = useState(0);
+    const [maxFrame, setMaxFrame] = useState(10);
+    const [isRunning, setIsRunning] = useState(false);
+    const [chartData, setChartData] = useState([]);
+    const [chartViewX, setChartViewX] = useState([]);
+    const [chartViewY, setChartViewY] = useState([]);
+
+    const chartOptions = {
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: chartViewX,
+            animation: 0,
+            animationDuration: 0,
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: false,
+            animation: 0,
+            animationDuration: 0,
+            axisLabel: {
+            formatter: '${value}'
+            }
+        },
+        series: {
+            type: 'line',
+            smooth: false,
+            areaStyle: {
+                color: 'rgb(255, 158, 68)',
+            },
+            data: chartViewY,
+            symbolSize: 0,
+        },
+        animationDuration: 0,
+        animationDurationUpdate: 0,
+        animationEasing: 'circularOut',
+    };
+
+    function SetChartOptions(newFrame) {
+
+        const data = chartData;
+
+        if (data.length > 0) {
+
+            setChartViewX(data.slice(newFrame, newFrame + frameSize).map(item => item['x']));
+            setChartViewY(data.slice(newFrame, newFrame + frameSize).map(item => item['y']));
         }
     }
 
+    const interval = useRef(null); // Store interval ID to clear later
+
+    // these functions are used from within the timer thread,
+    // thus they have to use the setter function to retrieve the value due to stale state
+    function GetCurrentFrame() {
+        let prevVal = 0;
+        setCurrentFrame(prev => { prevVal = prev; return prev; });
+        return (prevVal);
+    }
+
+    function GetMaxFrame() {
+        let prevVal = 0;
+        setMaxFrame(prev => { prevVal = prev; return prev; });
+        return (prevVal);
+    }
+
+    function GetIsRunning() {
+        let prevVal = 0;
+        setIsRunning(prev => { prevVal = prev; return prev; });
+        return (prevVal);
+    }
+    
     // Retrieves JSON from Cloud Blob
-    FetchChartData() {
+    function FetchChartData() {
         const resultsURL = FetchLib.BlobURL("OutputResults.json");
         fetch(resultsURL)
             .then(response => response.json())
-            .then(data => this.setState(
-                { 
-                    chartData: data, 
-                    maxFrame: data.length 
-                },
-                this.StartStop()
-            ));
+            .then(data => {
+                setMaxFrame(data.length);
+                setChartData(data);
+            });
     }
     
-    componentDidMount() {
-        this.FetchChartData();
-    }
-
-    // Timer switch for button and init
-    StartStop() {
-        const isRunning = this.state.isRunning;
-        const currentFrame = this.state.currentFrame;
-        const maxFrame = this.state.maxFrame;
-        const frameSize = this.state.frameSize;
-        // advance the frame one if paused in the middle, to avoid a lag
-        const advanceFrame = currentFrame > 0 && currentFrame !== (maxFrame - frameSize)
-                                ? this.state.currentFrame + 1 : 0;
-        if (isRunning)
-        {
-            this.StopTimer();
-        }
-        else {
-            this.setState({isRunning: true, currentFrame: advanceFrame},
-                this.StartTimer()
-            )
-        }
-    }
-
     // Starts the interval
-    StartTimer() {
-        this.interval = setInterval(this.NextFrame.bind(this), 1500)
-    }
+    function StartTimer() { 
+        interval.current = window.setInterval(NextFrame, TIMER_INTERVAl)
+    };
 
     // Clears the interval
-    StopTimer() {
-        clearInterval(this.interval);
-        this.setState({isRunning: false});
+    function StopTimer() {
+        clearInterval(interval.current);
+    };
+
+    useEffect(() => {
+        FetchChartData();
+        // Cleanup on unmount
+        return () => {
+            StopTimer();
+        };
+    }, []);
+
+    // after fetch
+    useEffect(() => {
+        if (chartData.length > 0) {
+            StartStop();
+        }
+    }, [chartData]);
+    
+    // Timer switch for button and init
+    function StartStop() {
+        if (isRunning)
+        {
+            StopTimer();
+            setIsRunning(false);
+        }
+        else {
+            // advance the frame one if paused in the middle, to avoid a lag
+            const advanceFrame = currentFrame > 0 && currentFrame !== (maxFrame - frameSize)
+                                    ? currentFrame + 1 : 0;
+            SetFrame(advanceFrame);
+            setIsRunning(true);
+            StartTimer();
+        }
     }
 
     // Advance + 1
-    NextFrame() {
-        this.MoveFrame(1);
-    }
+    function NextFrame() {
+        MoveFrame(1);
+    };
 
     // Advance - 1
-    PreviousFrame() {
-        if (this.state.currentFrame > 0)
+    function PreviousFrame() {
+        if (currentFrame > 0)
         {
-            this.MoveFrame(-1);
+            MoveFrame(-1);
         }
     }
 
     // Either next or previous, sets range of X axis
-    MoveFrame(frameDelta) {
-        if (this.state != null)
-        {
-            const frame = this.state.currentFrame;
-            const maxFrame = this.state.maxFrame;
-            const frameSize = this.state.frameSize;
-            const isRunning = this.state.isRunning;
-            if (isRunning) {
-                // if at the end, shut off timer, done, otherwise progress frame
-                if (frame < maxFrame - frameSize) {
-                    this.setState({
-                        currentFrame: frame + frameDelta,
-                    });
-                }
-                else {
-                    this.StopTimer();
-                }
+    function MoveFrame(frameDelta) {
+        const frame = GetCurrentFrame();
+        const max = GetMaxFrame();
+        const running = GetIsRunning();
+        if (running) {
+            // if at the end, shut off timer, done, otherwise progress frame
+            if (frame < max - frameSize) {
+                SetFrame(frame + frameDelta);
             }
             else {
-                // verify not out of bounds
-                if (frame + frameDelta + frameSize <= maxFrame) {
-                    // if at the end, reset to the end minus one frame for previous
-                    if (frame + frameSize >= maxFrame) {
-                        this.setState({
-                            currentFrame: maxFrame - frameSize + frameDelta,
-                        })
-                    }
-                    else {
-                        this.setState({
-                            currentFrame: frame + frameDelta,
-                        })
-                    }
+                StopTimer();
+                setIsRunning(false);
+            }
+        }
+        else {
+            // verify not out of bounds
+            if (currentFrame + frameDelta + frameSize <= max) {
+                // if at the end, reset to the end minus one frame for previous
+                if (currentFrame + frameSize >= max) {
+                    SetFrame(max - frameSize + frameDelta);
+                }
+                else {
+                    SetFrame(currentFrame + frameDelta);
                 }
             }
         }
-    }
+    };
 
-    render() {
-        const frame = this.state.currentFrame;
-        const frameSize = this.state.frameSize;
-        const chartData = this.state.chartData.slice(frame, frame + frameSize);
-        const fullData = this.state.chartData;
-        const isRunning = this.state.isRunning;
+    function SetFrame(value) {
+        setCurrentFrame(value);
+        SetChartOptions(value);
+    };
 
-        const sliderChange = (event, newValue) => {
-            if (!isRunning) {
-                this.setState({currentFrame: newValue});
-            }
-        };
-
-        return (
+    const sliderChange = (event, newValue) => {
+        if (!GetIsRunning()) {
+            SetFrame(newValue);
+        }
+    };
+    
+    return (
+        <section className="DashboardCardContainer Wide">
             <div className="ChartContainer">
                 <section className="ChartContainerInner">
-                    <VictoryChart
-                        theme={VictoryTheme.material}
-                        animate={{
-                            duration: 1400,
-                            easing: "linear"
-                        }}
-                        containerComponent={<VictoryContainer responsive={true}/>}
-                        style={{
-                            background: { fill: "whitesmoke" },
-                            fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-                        }}
-                    >
-                        <VictoryLine
-                            style={{
-                                data: { stroke: "steelblue" },
-                                parent: { border: "1px solid lightslategrey"},
-                            }}
-                            data={chartData}
-                            interpolation={"linear"}
-                            
-                        />
-                        <VictoryAxis dependentAxis
-                            style={{
-                                grid: { stroke: "lightslategrey" },
-                                tickLabels: { fontSize: 10, padding: 0, fontWeight: 600 },
-                            }}
-                            tickFormat={(t) => "$" + t.toLocaleString(undefined, {minimumFractionDigits: 0})}
-                        />
-
-                        <VictoryAxis crossAxis
-                            style={{
-                                grid: { stroke: "lightslategrey" },
-                                tickLabels: { fontSize: 10, fontWeight: 600 },
-                            }}
-                            label={"Trade Date"}
-                            axisLabelComponent={
-                                <VictoryLabel
-                                    dy={30}
-                                    style={{fill:"rgb(69, 90, 100)",
-                                            fontSize: 12,}}
-                                />
-                            }
-                        />
-                    </VictoryChart>         
+                    <ReactECharts option={chartOptions} />
                 </section>
-                <section className="SmallSpacer"/>
                 <section className="ChartButtonBar ">
                     <Slider
                         onChange={sliderChange}
                         track={false}
-                        value={frame}
+                        value={currentFrame}
                         aria-labelledby="trade dates"
-                        marks min={0} max={fullData.length > frameSize ? fullData.length - frameSize : fullData.length}
+                        marks min={0} max={chartData.length > frameSize ? chartData.length - frameSize : chartData.length}
                     />    
                 </section>
-                <section className="SmallSpacer" />
                 <section className="ChartButtonBar ">
-                    <button onClick={() => this.PreviousFrame()} disabled={isRunning}>Previous</button>
-                    <button onClick={() => this.StartStop()}>{!isRunning ? "Play" : "Stop"}</button>
-                    <button onClick={() => this.NextFrame()} disabled={isRunning}>Next</button>
+                    <button onClick={() => PreviousFrame()} disabled={isRunning} title="Previous">
+                        <SkipPrevious></SkipPrevious>
+                    </button>
+                    <button onClick={() => StartStop()} title={isRunning ? "Stop" : "Play"}>
+                        {!isRunning && (<PlayArrow></PlayArrow>)}
+                        {isRunning && (<Stop></Stop>)}
+                    </button>
+                    <button onClick={() => NextFrame()} disabled={isRunning} title="Next">
+                        <SkipNext></SkipNext>
+                    </button>
                 </section>
-                <section className="Spacer" />
             </div>
-        );
-    }
+        </section>
+    )
 }
 
 export default Chart;
