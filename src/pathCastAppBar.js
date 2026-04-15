@@ -51,9 +51,6 @@ function PathCastAppBar(props) {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <ThemeProvider theme={theme}>
         <Toolbar>
@@ -62,11 +59,11 @@ function PathCastAppBar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { xs: 'block', sm: 'block', md: 'none' } }}
+            sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'none' }, margin: '0px' }}
             >
             <MenuIcon />
             </IconButton>
-            <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+            <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>
             {navItems.map((item) => (
                 <Button key={item} sx={{ color: 'black' }} href={'#' + item}>
                 {item}
@@ -75,7 +72,6 @@ function PathCastAppBar(props) {
             </Box>
         </Toolbar>
         <Drawer
-            container={container}
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}

@@ -37,10 +37,10 @@ function App() {
                         </div>
                         <div className="DashboardInner">
                             <Grid container spacing={0} justifyContent={"center"} width={"90%"} maxWidth={"1100px"}>
-                                <Grid item size={{ xs: 12, sm: 6, md: 4}}>
+                                <Grid item size={{ xs: 12, sm: 12, md: 4}}>
                                     <DashboardCards/>
                                 </Grid>
-                                <Grid item size={{ xs: 12, sm: 6, md: 8 }}>
+                                <Grid item size={{ xs: 12, sm: 12, md: 8 }}>
                                     <Chart/>
                                 </Grid>
                             </Grid>
@@ -49,14 +49,14 @@ function App() {
                 </Grid>
                 <Grid size={12}>
                     <section className="Dashboard Sports" id="Sports">
-                        <div className="DashboardHeader" id="Media">
+                        <div className="DashboardHeader">
                             <h2>
                                 Future and In-Progress Projects
                             </h2>
                         </div>
                         <div className="DashboardInner">
                             <Grid container spacing={1} justifyContent={"center"} width={"90%"} maxWidth={"1100px"}>
-                                <Grid item size={{ xs: 12, sm: 6}}>
+                                <Grid item size={{ sm: 12, md: 6}}>
                                     <h3 className="CenterText">
                                         Professional Sports Predictions
                                     </h3>
@@ -67,8 +67,8 @@ function App() {
                                         </div>
                                     </div>
                                 </Grid>
-                                <Grid item size={{ xs: 12, sm: 6}}>
-                                    <h3 className="CenterText">
+                                <Grid item size={{ sm: 12, md: 6}}>
+                                    <h3 className="CenterText" id="Media">
                                         Media Futures Market
                                     </h3>
                                     <div className="DashboardCardContainer Short">
