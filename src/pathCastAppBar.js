@@ -29,8 +29,7 @@ const drawerWidth = 240;
 const navItems = ['Securities', 'Sports', 'Media', 'Contact'];
 
 // Responsive Menu
-function PathCastAppBar(props) {
-  const { window } = props;
+function PathCastAppBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
