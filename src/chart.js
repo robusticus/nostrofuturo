@@ -33,7 +33,10 @@ function Chart() {
             animation: 0,
             animationDuration: 0,
             axisLabel: {
-            formatter: '${value}'
+                formatter: function (params) {
+                    const formatted = new Intl.NumberFormat('en-US').format(params);
+                    return "$" + formatted;
+                }
             }
         },
         series: {
@@ -115,6 +118,9 @@ function Chart() {
     // after fetch
     useEffect(() => {
         if (chartData.length > 0) {
+            // TODO: The obvious changes here cause the state to close out and be inaccessible
+            // This may be that rare case where a component should be a class, not a function
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             StartStop();
         }
     }, [chartData]);
