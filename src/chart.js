@@ -120,8 +120,8 @@ function Chart() {
         if (chartData.length > 0) {
             // TODO: The obvious changes here cause the state to close out and be inaccessible
             // This may be that rare case where a component should be a class, not a function
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            StartStop();
+            // eslint-disable-next-line
+            StartStop(); // eslint-disable-line
         }
     }, [chartData]);
     
