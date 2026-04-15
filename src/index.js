@@ -101,15 +101,15 @@ function App() {
                                             what we can do for your project on a consulting basis, please feel free to reach out.
                                             <div className="ContactBar">
                                                 <a className="ContactLink" href="mailto:wtd.dev@gmail.com" 
-                                                    title="wtd.dev@gmail.com" target="_blank">
+                                                    title="wtd.dev@gmail.com" target="_blank" rel="noreferrer">
                                                     <Mail className="IconPadding" alt="wtd.dev@gmail.com"/>
                                                 </a>
                                                 <a className="ContactLink" href="https://www.linkedin.com/company/pathcastai-com" 
-                                                    title="PathCast AI LinkedIn" target="_blank">
+                                                    title="PathCast AI LinkedIn" target="_blank" rel="noreferrer">
                                                     <LinkedIn className="IconPadding"/>
                                                 </a>
                                                 <a className="ContactLink" href="https://github.com/robusticus/nostrofuturo" 
-                                                    title="Site GitHub" target="_blank">
+                                                    title="Site GitHub" target="_blank" rel="noreferrer">
                                                     <GitHub className="IconPadding"/>
                                                 </a>
                                             </div>
