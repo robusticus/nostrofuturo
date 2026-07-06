@@ -18,6 +18,7 @@ function Chart() {
     const [chartData, setChartData] = useState([]);
     const [chartViewX, setChartViewX] = useState([]);
     const [chartViewY, setChartViewY] = useState([]);
+    const [hasChartBeenVisible, setHasChartBeenVisible] = useState(false);
 
     const chartOptions = {
         xAxis: {
@@ -65,6 +66,8 @@ function Chart() {
     }
 
     const interval = useRef(null); // Store interval ID to clear later
+    const chartContainerRef = useRef(null);
+    const hasAutoStarted = useRef(false);
 
     // these functions are used from within the timer thread,
     // thus they have to use the setter function to retrieve the value due to stale state
@@ -115,15 +118,42 @@ function Chart() {
         };
     }, []);
 
-    // after fetch
     useEffect(() => {
-        if (chartData.length > 0) {
+        const chartContainer = chartContainerRef.current;
+
+        if (!chartContainer || hasChartBeenVisible) {
+            return;
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            setHasChartBeenVisible(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setHasChartBeenVisible(true);
+                observer.disconnect();
+            }
+        }, { threshold: 0.2 });
+
+        observer.observe(chartContainer);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [hasChartBeenVisible]);
+
+    // after fetch and first visible
+    useEffect(() => {
+        if (chartData.length > 0 && hasChartBeenVisible && !hasAutoStarted.current) {
+            hasAutoStarted.current = true;
             StartStop(); 
         }
     // TODO: The obvious changes here cause the state to close out and be inaccessible
     // This may be that rare case where a component should be a class, not a function
     // eslint-disable-next-line
-    }, [chartData]);
+    }, [chartData, hasChartBeenVisible]);
     
     // Timer switch for button and init
     function StartStop() {
@@ -196,7 +226,7 @@ function Chart() {
     };
     
     return (
-        <section className="DashboardCardContainer Wide">
+        <section className="DashboardCardContainer Wide" ref={chartContainerRef}>
             <div className="ChartContainer">
                 <section className="ChartContainerInner">
                     <ReactECharts option={chartOptions} />
