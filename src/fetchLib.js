@@ -5,8 +5,8 @@ class FetchLib {
     static BlobURL(file) {
         return "https://nostrofuturo.blob.core.windows.net/nostrofuturo/" 
             + file 
-            + "?sp=r&st=2021-09-08T15:21:46Z&se=2026-09-08T23:21:46Z&spr=https&sv=2020-08-04&sr=c&sig=3kl%2FSgIBl4rF5EJRrfpvNqQ6m4oq%2FXRU9%2FsbA33giHc%3D"
-            + "&version=2"
+            + "?sv=2026-02-06&ss=bfqt&srt=co&sp=r&se=2050-09-22T10:43:56Z&st=2026-09-22T02:28:56Z&spr=https&sig=brYP74wCdFFkH%2BN7wZwA9Z7asscEfrkhIGwckgs0ywE%3D"
+            + "&version=3"
     }
 }
 
